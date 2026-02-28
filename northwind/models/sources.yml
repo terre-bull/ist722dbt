@@ -55,22 +55,20 @@ sources:
             tests:
               - unique
       - name: Order_Details
-        tests:
-        - dbt_utils.unique_combination_of_columns:
-          combination_of_columns:
-        - OrderId
-        - ProductId
+        columns:
+         - name: orderid
+         - name: productid
+        tests: 
+         - dbt_utils.unique_combination_of_columns: {combination_of_columns: [orderid, productid]}
       - name: NorthwindDailyInventoryLevelsOneWeek
         columns:
           - name: Day
-            tests:
-              - unique
       - name: employeeterritories
+        columns: 
+         - name: EmployeeId
+         - name: territoryid
         tests:
-          - dbt_utils.unique_combination_of_columns:
-            combination_of_columns:
-          - EmployeeId
-          - territoryid
+         - dbt_utils.unique_combination_of_columns: {combination_of_columns: [EmployeeId, territoryid]}
       - name: region
         columns:
           - name: regionid
