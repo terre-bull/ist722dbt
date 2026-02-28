@@ -1,8 +1,8 @@
-ersion: 2
+version: 2
 
 
 models:
-  - name: dim_customer
+  - name: dim_customers
     description: Customer Dimension. One row per customer
     columns:
       - name: customerkey
