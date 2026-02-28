@@ -1,0 +1,10 @@
+version: 2
+
+models:
+  - name: fact_sales
+    description: Transaction fact table. One row per line item ordered. Includes product data
+    columns:
+      - name: orderid
+      - name: productid
+    tests: 
+      - dbt_utils.unique_combination_of_columns: {combination_of_columns: [orderid, productid]}
