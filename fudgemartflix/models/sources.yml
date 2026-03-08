@@ -1,0 +1,42 @@
+version: 2
+
+sources:
+  - name: conformed
+    database: RAW
+    schema: CONFORMED
+    tables:
+      - name: datedimension
+
+  - name: fudgeflix_v3
+    database: RAW
+    schema: FUDGEFLIX_V3
+    tables:
+      - name: ff_accounts
+      - name: ff_zipcodes
+      - name: ff_plans
+      - name: ff_titles
+      - name: ff_genres
+      - name: ff_people
+      - name: ff_cast
+      - name: ff_directors
+      - name: ff_title_genres
+      - name: ff_account_titles
+      - name: ff_account_billing
+
+  - name: fudgemart_v3
+    database: RAW
+    schema: FUDGEMART_V3
+    tables:
+      - name: fm_customers
+      - name: fm_products
+      - name: fm_orders
+      - name: fm_order_details
+      - name: fm_employees
+      - name: fm_vendors
+      - name: fm_creditcards
+      - name: fm_customer_creditcards
+      - name: fm_customer_product_reviews
+      - name: fm_employee_timesheets
+      - name: fm_departments_lookup
+      - name: fm_jobtitles_lookup
+      - name: fm_shipvia_lookup

@@ -1,0 +1,33 @@
+version: 2
+
+models:
+  - name: dim_payment_method
+    description: >
+      Payment method dimension. FudgeFlix has no payment data and is represented
+      by a single 'Not Applicable' placeholder row. FudgeMart rows represent
+      individual credit cards from fm_creditcards.
+    columns:
+      - name: payment_method_key
+        description: Surrogate key for the payment method dimension, generated from payment_id and division
+        tests:
+          - not_null
+          - unique
+
+      - name: payment_id
+        description: Primary key of the source system. creditcard_id from FudgeMart, 0 for FudgeFlix placeholder
+        tests:
+          - not_null
+
+      - name: payment_type
+        description: Payment type. Either 'Not Applicable' (FudgeFlix) or 'Credit Card' (FudgeMart)
+
+      - name: payment_exp_date
+        description: Credit card expiration date. Null for FudgeFlix
+
+      - name: payment_credit_card
+        description: Credit card number. Null for FudgeFlix
+
+      - name: division
+        description: Source system identifier. Either 'FudgeFlix' or 'FudgeMart'
+        tests:
+          - not_null

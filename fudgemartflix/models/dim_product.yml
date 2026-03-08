@@ -1,0 +1,39 @@
+version: 2
+
+models:
+  - name: dim_product
+    description: >
+      Conformed product dimension combining products from FudgeFlix (streaming plans)
+      and FudgeMart (retail products). One row per product per division.
+    columns:
+      - name: product_key
+        description: Surrogate key for the product dimension, generated from product_id and division
+        tests:
+          - not_null
+          - unique
+
+      - name: product_id
+        description: Primary key of the source system (business key). plan_id from FudgeFlix, product_id from FudgeMart
+        tests:
+          - not_null
+          - unique
+
+      - name: product_name
+        description: Product name. Plan name for FudgeFlix, product name for FudgeMart
+
+      - name: product_is_active
+        description: Whether the product is active (1) or not active (0). Sourced from plan_current for FudgeFlix, product_is_active for FudgeMart
+
+      - name: product_start_date
+        description: When the product was first introduced. Null for FudgeFlix, product_add_date for FudgeMart
+
+      - name: product_department
+        description: Product department. Null for FudgeFlix, product_department for FudgeMart
+
+      - name: product_vendor_name
+        description: Product vendor name. Null for FudgeFlix, joined from fm_vendors for FudgeMart
+
+      - name: division
+        description: Source system identifier. Either 'FudgeFlix' or 'FudgeMart'
+        tests:
+          - not_null
