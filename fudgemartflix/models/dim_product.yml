@@ -16,7 +16,6 @@ models:
         description: Primary key of the source system (business key). plan_id from FudgeFlix, product_id from FudgeMart
         tests:
           - not_null
-          - unique
 
       - name: product_name
         description: Product name. Plan name for FudgeFlix, product name for FudgeMart

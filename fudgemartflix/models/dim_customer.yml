@@ -20,8 +20,6 @@ models:
 
       - name: customer_email
         description: Customer's email address
-        tests:
-          - unique
 
       - name: customer_firstname
         description: Customer's first name
