@@ -5,7 +5,14 @@ Welcome to your new dbt project!
 Try running the following commands:
 - dbt run
 - dbt test
-
+  
+Run these in order (Do not include the leading dash):
+- dbt run --select dim_date
+- dbt run --select dim_customer
+- dbt run --select dim_product
+- dbt run --select dim_payment_method
+- dbt run --select dim_sales_channel
+- dbt run --select fact_sale
 
 ### Resources:
 - Learn more about dbt [in the docs](https://docs.getdbt.com/docs/introduction)
