@@ -6,7 +6,7 @@ Try running the following commands:
 - dbt run
 - dbt test
   
-Run these in order (Do not include the leading dash):
+Run these in order:
 - dbt run --select dim_date
 - dbt run --select dim_customer
 - dbt run --select dim_product
