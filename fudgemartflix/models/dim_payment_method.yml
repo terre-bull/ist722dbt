@@ -21,12 +21,6 @@ models:
       - name: payment_type
         description: Payment type. Either 'Not Applicable' (FudgeFlix) or 'Credit Card' (FudgeMart)
 
-      - name: payment_exp_date
-        description: Credit card expiration date. Null for FudgeFlix
-
-      - name: payment_credit_card
-        description: Credit card number. Null for FudgeFlix
-
       - name: division
         description: Source system identifier. Either 'FudgeFlix' or 'FudgeMart'
         tests:
