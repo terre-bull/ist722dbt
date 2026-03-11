@@ -4,7 +4,7 @@ with fudgeflix_products as (
         plan_name                               as product_name,
         plan_current::varchar                   as product_is_active,
         null::varchar                           as product_start_date,
-        null::varchar                           as product_department,
+        'fudgeflix_subscriptions'                           as product_department,
         null::varchar                           as product_vendor_name,
         'FudgeFlix'                             as division
     from {{ source('fudgeflix_v3', 'ff_plans') }}
