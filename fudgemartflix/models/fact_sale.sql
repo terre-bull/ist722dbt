@@ -12,6 +12,10 @@ with fudgeflix_sales as (
         ab.ab_billed_amount                                         as sold_amount,
         ab.ab_billed_amount / 2                                     as cost_amount,
         ab.ab_billed_amount - (ab.ab_billed_amount / 2)             as order_profit,
+        CASE WHEN ab.ab_billed_amount = 0 OR ab.ab_billed_amount IS NULL
+             THEN NULL
+             ELSE ROUND((ab.ab_billed_amount - (ab.ab_billed_amount / 2)) / ab.ab_billed_amount, 4)
+        END                                                         as order_profit_margin,
         'FudgeFlix'                                                 as division
     from {{ source('fudgeflix_v3', 'ff_account_billing') }} ab
     left join {{ ref('dim_customer') }} dc
@@ -40,6 +44,12 @@ fudgemart_sales as (
         od.order_qty * p.product_wholesale_price                    as cost_amount,
         (od.order_qty * p.product_retail_price)
             - (od.order_qty * p.product_wholesale_price)            as order_profit,
+        CASE WHEN (od.order_qty * p.product_retail_price) = 0 OR (od.order_qty * p.product_retail_price) IS NULL
+             THEN NULL
+             ELSE ROUND(
+                ((od.order_qty * p.product_retail_price) - (od.order_qty * p.product_wholesale_price))
+                / (od.order_qty * p.product_retail_price), 4)
+        END                                                         as order_profit_margin,
         'FudgeMart'                                                 as division
     from {{ source('fudgemart_v3', 'fm_orders') }} o
     join {{ source('fudgemart_v3', 'fm_order_details') }} od

@@ -66,6 +66,11 @@ models:
         tests:
           - not_null
 
+      - name: order_profit_margin
+        description: >
+          Profit margin percentage calculated as order_profit divided by sold_amount.
+          Expressed as a decimal (e.g. 0.4250 = 42.50%). NULL if sold_amount is zero or NULL.
+
       - name: division
         description: Source system identifier. Either 'FudgeFlix' or 'FudgeMart'
         tests:
