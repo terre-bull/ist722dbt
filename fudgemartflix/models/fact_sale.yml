@@ -22,7 +22,7 @@ models:
         tests:
           - not_null
 
-      - name: date_key
+      - name: order_date_key
         description: Foreign key to dim_date.date_key in YYYYMMDD format. Derived from ab_date (FudgeFlix) or order_date (FudgeMart)
         tests:
           - not_null
@@ -53,10 +53,10 @@ models:
       - name: unit_cost_price
         description: Cost price per unit. 50% of ab_billed_amount for FudgeFlix, product_wholesale_price for FudgeMart
 
-      - name: sold_amount
+      - name: order_sold_amount
         description: Additive fact. Total selling amount (quantity * unit_selling_price)
 
-      - name: cost_amount
+      - name: order_cost_amount
         description: Additive fact. Total cost amount (quantity * unit_cost_price)
         tests:
           - not_null
