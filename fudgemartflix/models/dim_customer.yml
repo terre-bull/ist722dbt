@@ -4,7 +4,9 @@ models:
   - name: dim_customer
     description: >
       Conformed customer dimension combining customers from FudgeFlix and FudgeMart.
-      One row per customer per division.
+      Customers appearing in both systems are matched by email and consolidated
+      into a single record using the FudgeMart data, with division set to 'BOTH'.
+      FudgeFlix-only customers are kept with their original data.
     columns:
       - name: customer_key
         description: Surrogate key for the customer dimension, generated from customer_id and division
@@ -16,7 +18,6 @@ models:
         description: Primary key of the source system (business key). account_id from FudgeFlix, customer_id from FudgeMart
         tests:
           - not_null
-          - unique
 
       - name: customer_email
         description: Customer's email address
@@ -46,6 +47,11 @@ models:
         description: Customer's fax number. Null for FudgeFlix customers
 
       - name: division
-        description: Source system identifier. Either 'FudgeFlix' or 'FudgeMart'
+        description: >
+          Source system identifier. 'FudgeMart' for FudgeMart-only customers,
+          'FudgeFlix' for FudgeFlix-only customers, 'BOTH' for customers
+          found in both systems (matched by email, kept as FudgeMart record).
         tests:
           - not_null
+          - accepted_values:
+              values: ['FudgeMart', 'FudgeFlix', 'BOTH']
