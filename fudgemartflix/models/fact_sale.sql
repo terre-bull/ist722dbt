@@ -18,9 +18,10 @@ with fudgeflix_sales as (
         END                                                         as order_profit_margin,
         'FudgeFlix'                                                 as division
     from {{ source('fudgeflix_v3', 'ff_account_billing') }} ab
+    left join {{ source('fudgeflix_v3', 'ff_accounts') }} acc
+        on ab.ab_account_id = acc.account_id
     left join {{ ref('dim_customer') }} dc
-        on ab.ab_account_id::varchar = dc.customer_id
-        and dc.division = 'FudgeFlix'
+        on lower(trim(acc.account_email)) = lower(trim(dc.customer_email))
     left join {{ ref('dim_product') }} dp
         on ab.ab_plan_id::varchar = dp.product_id
         and dp.division = 'FudgeFlix'
@@ -58,7 +59,7 @@ fudgemart_sales as (
         on od.product_id = p.product_id
     left join {{ ref('dim_customer') }} dc
         on o.customer_id::varchar = dc.customer_id
-        and dc.division = 'FudgeMart'
+        and dc.division in ('FudgeMart', 'BOTH')
     left join {{ ref('dim_product') }} dp
         on od.product_id::varchar = dp.product_id
         and dp.division = 'FudgeMart'
