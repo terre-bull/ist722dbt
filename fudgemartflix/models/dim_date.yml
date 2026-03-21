@@ -3,8 +3,8 @@ version: 2
 models:
   - name: dim_date
     description: >
-      Date dimension sourced from RAW.CONFORMED.DATEDIMENSION. One row per calendar
-      date, covering 1970-01-01 through approximately 30 years. Date key is in
+      Date dimension generated via Snowflake date spine. One row per calendar
+      date, covering 2000-01-01 through 2030-12-31. Date key is in
       YYYYMMDD integer format, not a surrogate key.
     columns:
       - name: date_key
