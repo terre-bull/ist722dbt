@@ -1,8 +1,8 @@
 with fudgeflix_payment as (
     select
         0                                       as payment_id,
-        'Not Applicable'                        as payment_type,
-        'Not Applicable'                        as card_network,
+        'NA'                        as payment_type,
+        'NA'                        as card_network,
         'FudgeFlix'                             as division
 ),
 
