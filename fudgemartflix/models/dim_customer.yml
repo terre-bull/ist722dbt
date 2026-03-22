@@ -1,0 +1,57 @@
+version: 2
+
+models:
+  - name: dim_customer
+    description: >
+      Conformed customer dimension combining customers from FudgeFlix and FudgeMart.
+      Customers appearing in both systems are matched by email and consolidated
+      into a single record using the FudgeMart data, with division set to 'BOTH'.
+      FudgeFlix-only customers are kept with their original data.
+    columns:
+      - name: customer_key
+        description: Surrogate key for the customer dimension, generated from customer_id and division
+        tests:
+          - not_null
+          - unique
+
+      - name: customer_id
+        description: Primary key of the source system (business key). account_id from FudgeFlix, customer_id from FudgeMart
+        tests:
+          - not_null
+
+      - name: customer_email
+        description: Customer's email address
+
+      - name: customer_firstname
+        description: Customer's first name
+
+      - name: customer_lastname
+        description: Customer's last name
+
+      - name: customer_address
+        description: Customer's street name and number
+
+      - name: customer_city
+        description: Customer's city. Sourced from ff_zipcodes for FudgeFlix, directly from fm_customers for FudgeMart
+
+      - name: customer_state
+        description: Customer's state. Sourced from ff_zipcodes for FudgeFlix, directly from fm_customers for FudgeMart
+
+      - name: customer_zip
+        description: Customer's zip code
+
+      - name: customer_phone
+        description: Customer's phone number. Null for FudgeFlix customers
+
+      - name: customer_fax
+        description: Customer's fax number. Null for FudgeFlix customers
+
+      - name: division
+        description: >
+          Source system identifier. 'FudgeMart' for FudgeMart-only customers,
+          'FudgeFlix' for FudgeFlix-only customers, 'BOTH' for customers
+          found in both systems (matched by email, kept as FudgeMart record).
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['FudgeMart', 'FudgeFlix', 'BOTH']
