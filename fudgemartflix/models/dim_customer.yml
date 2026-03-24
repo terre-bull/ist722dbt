@@ -49,9 +49,9 @@ models:
       - name: division
         description: >
           Source system identifier. 'FudgeMart' for FudgeMart-only customers,
-          'FudgeFlix' for FudgeFlix-only customers, 'BOTH' for customers
-          found in both systems (matched by email, kept as FudgeMart record).
+          'FudgeFlix' for FudgeFlix-only customers, 'FudgeFlix|FudgeMart' for customers
+          found in both systems (matched by email, kept as FudgeMart record because more data is included from FudgeMart).
         tests:
           - not_null
           - accepted_values:
-              values: ['FudgeMart', 'FudgeFlix', 'BOTH']
+              values: ['FudgeMart', 'FudgeFlix', 'FudgeFlix|FudgeMart']

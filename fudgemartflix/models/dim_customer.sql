@@ -43,7 +43,7 @@ fudgemart_final as (
     select
         fm.*,
         case
-            when em.fm_customer_id is not null then 'BOTH'
+            when em.fm_customer_id is not null then 'FudgeFlix|FudgeMart'
             else 'FudgeMart'
         end as division
     from fudgemart_customers fm
