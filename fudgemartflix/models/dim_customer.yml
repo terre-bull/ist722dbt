@@ -20,7 +20,10 @@ models:
           - not_null
 
       - name: customer_email
-        description: Customer's email address
+        description: Customer's email address. Used as the conformed join key for fact_sale lookups.
+        tests:
+          - not_null
+          - unique
 
       - name: customer_firstname
         description: Customer's first name
