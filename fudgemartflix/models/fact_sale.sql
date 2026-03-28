@@ -55,9 +55,11 @@ fudgemart_sales as (
         on o.order_id = od.order_id
     join {{ source('fudgemart_v3', 'fm_products') }} p
         on od.product_id = p.product_id
+    left join {{ source('fudgemart_v3', 'fm_customers') }} c
+        on o.customer_id = c.customer_id
     left join {{ ref('dim_customer') }} dc
-        on o.customer_id::varchar = dc.customer_id
-        and dc.division in ('FudgeMart', 'BOTH')
+        on lower(trim(c.customer_email)) = lower(trim(dc.customer_email))
+        and dc.division like '%FudgeMart%'
     left join {{ ref('dim_product') }} dp
         on od.product_id::varchar = dp.product_id
         and dp.division = 'FudgeMart'

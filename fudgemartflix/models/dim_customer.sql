@@ -32,8 +32,10 @@ fudgemart_customers as (
 
 email_matches as (
     select
-        ff.customer_id as ff_customer_id,
-        fm.customer_id as fm_customer_id
+        ff.customer_id      as ff_customer_id,
+        fm.customer_id      as fm_customer_id,
+        ff.customer_city    as ff_customer_city,
+        ff.customer_state   as ff_customer_state
     from fudgeflix_customers ff
     inner join fudgemart_customers fm
         on lower(trim(ff.customer_email)) = lower(trim(fm.customer_email))
@@ -41,9 +43,18 @@ email_matches as (
 
 fudgemart_final as (
     select
-        fm.*,
+        fm.customer_id,
+        fm.customer_email,
+        fm.customer_firstname,
+        fm.customer_lastname,
+        fm.customer_address,
+        coalesce(em.ff_customer_city, fm.customer_city)     as customer_city,
+        coalesce(em.ff_customer_state, fm.customer_state)   as customer_state,
+        fm.customer_zip,
+        fm.customer_phone,
+        fm.customer_fax,
         case
-            when em.fm_customer_id is not null then 'BOTH'
+            when em.fm_customer_id is not null then 'FudgeFlix|FudgeMart'
             else 'FudgeMart'
         end as division
     from fudgemart_customers fm
